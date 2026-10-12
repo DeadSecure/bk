@@ -32,11 +32,20 @@ and a separate Additional Tunnels test.
    explicitly refused instead of installing an incompatible binary. L2TP loads
    the required kernel drivers; Ubuntu's matching extra-module package is
    installed when needed. Kernels without L2TP support are reported as errors.
-2. Select Setup Iran or Setup Kharej, choose the method and enter the assigned
+2. On Iran select **Setup Iran**, choose the method and enter the assigned
    IPv4 addresses, port, paired ID/secret, tunnel subnet (where applicable), MTU
    and forwarding endpoints. Each additional tunnel has its own named unit.
-3. Copy the resulting `bk://e.` link to **11 -> Apply setup link** on the other
-   server. The link contains the shared secret; keep it private. Machine-local
+   GRE, L2TPv3 IP/UDP, AWG, RGT direct and Alghadir use a separate **paired
+   internal forwarding port** (default 17012). Keep this port unused and different
+   from the kharej backend port; it is carried in the setup link. This avoids
+   conflicting with a backend such as Xray listening on all addresses at 2053.
+3. On kharej select **11 -> Setup Kharej** and paste the resulting Iran
+   `bk://e.` link (**Apply setup link** is an equivalent shortcut). Do not run
+   Setup Iran on both servers. Kharej imports the paired ID, subnet, secret,
+   method and forwarding settings; it does not open a second manual wizard or
+   print a return link. Install the same **v1.11.4 or newer** on both servers.
+   L2TPv3 IP uses IPv4 protocol 115, so it does not ask for a TCP/UDP tunnel port.
+   The link contains the shared secret; keep it private. Machine-local
    SSH keys and physical-interface/MAC overrides are never copied in the link.
 4. Start the backend service on kharej, then use **0 -> Additional tunnels** on
    both servers to verify the real path. A running systemd unit alone is not
@@ -172,8 +181,12 @@ bk remains based on BackPack by Amin Mohammadi (AminMGMT).
 یا خطای راه‌اندازی نتیجهٔ موفق محسوب نمی‌شود.
 
 در نسخهٔ جدید، وابستگی‌های روش انتخابی هنگام ساخت و تست خودکار آماده می‌شوند.
-هر دو سرور را به نسخهٔ v1.10.0 به‌روزرسانی کن؛ سپس یک سمت
-را بساز و لینک `bk://e.` را در گزینهٔ Apply setup link سمت دیگر وارد کن.
+هر دو سرور را به نسخهٔ v1.11.4 یا جدیدتر به‌روزرسانی کن؛ در ایران گزینهٔ
+Setup Iran را انتخاب کن و لینک `bk://e.` را در گزینهٔ Setup Kharej خارج
+وارد کن. خارج تنظیمات جفت‌شده را می‌گیرد و لینک برگشت نمی‌دهد.
+برای روش‌های کرنلی، درگاه داخلی انتقال باید آزاد و متفاوت از درگاه سرویس
+مقصد خارج باشد. L2TPv3 IP از پروتکل ۱۱۵ استفاده می‌کند؛ L2TPv3 UDP
+از درگاه UDP مشترک استفاده می‌کند. نتیجهٔ تست هر کدام مستقل است.
 این لینک کلید مشترک دارد؛ آن را عمومی نکن. برای تست، ایران لینک موقت
 `bk://et.` می‌دهد و خارج آن را در منوی تست وارد می‌کند. آدرس محلی باید IPv4
 واقعاً اختصاص‌یافته به کارت شبکه باشد؛ حالت NAT و IPv6 در این افزونه پوشش
@@ -197,4 +210,4 @@ Alghadir تازه، همهٔ لایه‌های GRE، IPsec، KCP، udp2raw و ob
 
 </div>
 
-*Last verified against bk v1.11.2.*
+*Last verified against bk v1.11.4.*

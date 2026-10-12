@@ -50,8 +50,13 @@ accounts are not installed or distributed.
    unused ports and forwarding endpoints. Each instance needs a unique name,
    tunnel ID and unused private subnet. AnyConnect and L2TP/IPsec need Iran
    `.1` and kharej `.2` in one unused `/30`.
-2. Copy the secret `bk://e.` link to **12 → Apply setup link** on kharej.
-   Start the kharej backend. Treat setup and test links like passwords.
+2. Copy the secret `bk://e.` link to **12 → Setup Kharej** on kharej
+   (**Apply setup link** is an equivalent shortcut). Kharej asks only for the
+   Iran link, retains its secret and forwarding settings, and starts the paired
+   backend. It does not create a second manual configuration or return link.
+   Treat setup and test links like passwords. The configured target service
+   must actually listen on kharej; a running local unit is not proof that the
+   authenticated tunnel or the target service is reachable.
 3. On Iran choose **0 → Test Tunnel Package 3 → Iran**, select a family,
    then **Normal Tests** (Dagger/Solarpass) and one numbered group. Choose
    **Test This Group** or one listed method. Each group produces at most ten
@@ -128,7 +133,8 @@ traffic in the lab; test the actual Iran/kharej route before selecting a method.
 کد موتورهای اصلی bk تغییر نکرده و فایل‌های اولیهٔ `new2` محفوظ هستند.
 
 روی هر دو سرور یک نسخهٔ یکسان نصب کن. ابتدا سمت ایران را بساز و لینک
-محرمانهٔ تنظیمات را در خارج وارد کن. آدرس محلی باید روی کارت شبکهٔ سرور
+محرمانهٔ تنظیمات را در گزینهٔ **۱۲ ← Setup Kharej** خارج وارد کن؛ خارج
+تنظیمات مستقل نمی‌سازد و لینک برگشت نمی‌دهد. آدرس محلی باید روی کارت شبکهٔ سرور
 وجود داشته باشد. برای هر تونل نام، شناسه، درگاه و زیرشبکهٔ آزاد انتخاب کن.
 برای AnyConnect و L2TP/IPsec آدرس ایران باید .۱ و آدرس خارج .۲ در یک /۳۰ باشد.
 
@@ -155,4 +161,4 @@ MTU توافق‌شدهٔ AnyConnect رعایت می‌شود و گزینهٔ DT
 
 </div>
 
-*Last verified against bk v1.11.2.*
+*Last verified against bk v1.11.4.*
